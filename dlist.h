@@ -9,7 +9,6 @@ class DList{
 			data_=d;
 			next_=n;
 			prev_=p;
-
 		}
 	};
 	Node* front_;
@@ -19,9 +18,25 @@ public:
 		front_=nullptr;
 		back_=nullptr;
 	}
-	void push_front(const T& data);
+	//puts a new node containing data at the front of the linked list
+	void push_front(const T& data){
+		//make a new node with data ,next pointer gets same as front prev is nullptr
+		Node* nn=new Node(data,front_,nullptr);
+		if(front_!=nullptr){
+			//make front's prev point to new node
+			front_->prev_ = nn;
+		}
+		else{
+			back_=nn;
+		}
+		//make front point to new node
+		front_=nn;
+	}
+	//puts a new node containing data at the back of the linked list
 	void push_back(const T& data);
+	//removes the first node in linked list
 	void pop_front();
+	//removes last node in linked list
 	void pop_back();
 	void print() const;
 	~DList();	
