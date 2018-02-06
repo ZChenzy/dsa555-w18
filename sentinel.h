@@ -15,23 +15,21 @@ class DList{
 	Node* back_;
 public:
 	DList(){
-		front_=nullptr;
-		back_=nullptr;
+		front_= new Node();
+		back_=new Node();
+		front_->next_ = back_;
+		back_->prev_=front_;
 	}
-	//puts a new node containing data at the front of the linked list
+	//puts a new node containing data between the front sentinel (first node)
+	//and second node (could be data, could be back sentinel)
 	void push_front(const T& data){
-		//make a new node with data ,next pointer gets same as front prev is nullptr
-		Node* nn=new Node(data,front_,nullptr);
-		if(front_!=nullptr){
-			//make front's prev point to new node
-			front_->prev_ = nn;
-		}
-		else{
-		
-			back_=nn;
-		}
-		//make front point to new node
-		front_=nn;
+		Node* first=front_;
+		Node* second=first->next_;
+		//make a new node with data ,next pointer points to second
+		//node, previous is sentinel
+		Node* nn=new Node(data,second,first);
+		first->next_=nn;
+		second->prev_=nn;
 	}
 	//puts a new node containing data at the back of the linked list
 	void push_back(const T& data);
