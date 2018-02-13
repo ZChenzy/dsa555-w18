@@ -35,20 +35,65 @@ public:
 	void push_back(const T& data);
 	//removes the first node in linked list
 	void pop_front(){
-		if(front_ != nullptr){
-			Node* rm = front_;
-			if(front_!=back_){  //make sure we have more than one node
-				front_=front_->next_; //front_=rm->next_;
-				front_->prev_=nullptr;
-			}
-			else{
-				front_=back_=nullptr;
-			}
+		//if list is not empty of data
+		if(front_->next_ != back_){
+			Node* rm = front_->next_;
+			Node* rmNext=rm->next_;
+			front_->next_=rmNext;
+			rmNext->prev_=front_;
 			delete rm;
 		}
 	}
 	//removes last node in linked list
 	void pop_back();
 	void print() const;
-	~DList();	
+	~DList();
+	const_iterator begin() const{return const_iterator(front_->next_);}
+	const_iterator end() const{return const_iterator(back_);}
+	class const_iterator{
+		friend class DList;
+		Node* curr_;
+		//assign curr_ with n;
+		const_iterator(Node* n){
+			curr_=n;
+		}
+	public:
+		const_iterator(){
+			curr_=nullptr;
+		}
+		const_iterator operator++(){
+			//++x
+			curr_=curr_->next_;
+			return *this;
+		}
+		const_iterator operator++(int){
+			//x++
+			const_iterator old=*this;
+			curr_=curr_->next_;
+			return old;
+		}
+		const_iterator operator--(){
+			//--x
+			curr_=curr_->prev_;
+			return *this;
+		}
+		const_iterator operator--(int){
+			//x--
+			const_iterator old=*this;
+			curr_=curr_->prev_;
+			return old;
+		}
+		const T& operator*() const{
+			return curr_->data_;
+		}
+		bool operator!=(const_iterator rhs) const{
+			return (curr_!=rhs.curr_);
+		}
+		bool operator==(const_iterator rhs) const{
+			return (curr_==rhs.curr_);
+		}
+	};	
+
+
+
 };
