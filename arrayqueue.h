@@ -1,15 +1,12 @@
 template<class T>
 class Queue{
-	T* data_;
-	int capacity_;
-	int used_;
-	int front_; //index of first item in queue
-	int back_;  //index of last item in queue
+
 	void grow(){
 		T* tmp=new T[capacity_*2];
 		int j=front_;
-		for(int i=0;i<used_;i++,(j+1)%capacity_){
+		for(int i=0;i<used_;i++){
 			tmp[i]=data[j];
+			j=(j+1)%capacity_;
 		}
 		delete [] data_;
 		data_=tmp;
@@ -17,6 +14,12 @@ class Queue{
 		front_=0;
 		back_=used_;
 	}
+	T* data_;
+	int capacity_;
+	int used_;
+	int front_;  //index of front of list
+	int back_;	 //index of where to put 
+	             //new things
 public:
 	Queue(){
 		capacity_=50;
@@ -26,26 +29,22 @@ public:
 		back_=0;
 	}
 	void enqueue(const T& data){
-		if(used_==capacity_){
-			grow();
-		}
 		data_[back_]=data;
 		back_=(back_+1)%capacity_;
-		used_++;
+/*		if(back_==capacity_-1){
+			back_=0;
+		}
+		else{
+			back_++;
+		}*/
 	}
 	void dequeue(){
-		if(!empty()){
-			used_--;
-			front_=(front_==capacity_-1)?0:front_+1;
-		}
+		front_=(front_+1)% capacity_;
 	}
 	T front() const{
-		return data_[front_]
+		return data_[front_];	
 	}
 	bool empty(){
-		return used_==0;
 	}
-	~Queue(){
-		delete [] data_;
-	}
+
 };
