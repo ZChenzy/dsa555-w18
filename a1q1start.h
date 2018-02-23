@@ -41,11 +41,11 @@ public:
 	iterator end(){}
 	const_iterator begin() const{}
 	const_iterator end() const{}
-	void push_front();
-	void push_back();
+	void push_front(const T& data);
+	void push_back(const T& data);
 	void pop_front();
 	void pop_back();
-	iterator insert(const T& data);
+	iterator insert(const T& data, iterator it);
 	iterator search(const T& data);
 	const_iterator search(const T& data) const;
 	iterator erase(iterator it);
@@ -98,7 +98,7 @@ void DList<T>::pop_back(){
 }
 
 template <typename T>
-typename DList<T>::iterator DList<T>::insert(const T& data){
+typename DList<T>::iterator DList<T>::insert(const T& data, iterator it){
 
 }
 
