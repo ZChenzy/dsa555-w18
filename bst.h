@@ -32,7 +32,50 @@ public:
 		root_=nullptr; 
 	}
 	void insert(const T& data){
-
+		insert(data,root_);
 	}
+	void insertIterative(const T& data){
+		Node* curr=root_;
+		if(curr == nullptr){
+			root_=new Node(data);
+		}
+		else{
+			bool inserted=false;
+			while(!inserted){
+				if(data < curr->data_){
+					//belongs to left
+					if(curr->left_ == nullptr){
+						curr->left_=new Node(data);
+						inserted=true;
+					}
+					else{
+						curr=curr->left_;
+					}
 
+				}
+				else{
+					//belongs to right
+					if(curr->right_ == nullptr){
+						curr->right_=new Node(data);
+						inserted=true;
+					}
+					else{
+						curr=curr->right_;
+					}
+
+				}
+			}
+		}
+	}
 };
+
+
+
+
+
+
+
+
+
+
+
