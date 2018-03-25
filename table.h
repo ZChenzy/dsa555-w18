@@ -204,7 +204,7 @@ SimpleTable<TYPE>::~SimpleTable(){
 template <class TYPE>
 class LPTable:public Table<TYPE>{
 public:
-	LPTable(int maxExpected,double percentOpen);
+	LPTable(int maxExpected);
 	LPTable(const LPTable& other);
 	LPTable(LPTable&& other);
 	virtual bool update(const string& key, const TYPE& value);
